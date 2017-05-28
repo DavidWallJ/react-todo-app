@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';
 import TodoSearch from 'TodoSearch';
+import uuid from 'node-uuid';
+// this is used to create unique ids
 
 const TodoApp = React.createClass({
   getInitialState: function () {
@@ -13,26 +15,34 @@ const TodoApp = React.createClass({
       searchText: '',
       todos: [
         {
-          id: 1,
+          id: uuid(),
           text: 'Walk the dog'
         },
         {
-          id: 2,
+          id: uuid(),
           text: 'Walk the cat'
         },
         {
-          id: 3,
+          id: uuid(),
           text: 'Dog the walk'
         },
         {
-          id: 4,
+          id: uuid(),
           text: 'Pick up lunch'
         }
       ]
     };
   },
   handleAddTodo: function (text) {
-    alert('new todo: ' + text)
+    this.setState({
+      todos: [
+        ...this.state.todos,
+        {
+          text: text,
+          id: uuid()
+        }
+      ]
+    });
   },
   handleSearch: function (showCompleted, searchText) {
     this.setState({
