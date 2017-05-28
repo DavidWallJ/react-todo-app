@@ -1,11 +1,16 @@
+/**
+ * Created by david on 5/28/17.
+ */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import expect from 'expect';
 import $ from 'jquery';
 import TestUtils from 'react-addons-test-utils';
 
-describe('App', () => {
-  it('should properly run tests', () => {
-    expect(1).toBe(1);
+import Todo from 'Todo';
+
+describe('Todo', () => {
+  it('should exist', () => {
+    expect(Todo).toExist();
   });
 });
