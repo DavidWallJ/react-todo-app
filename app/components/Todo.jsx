@@ -3,14 +3,15 @@
  */
 import React, { Component } from 'react';
 
-const ToDoApp = React.createClass({
+const Todo = React.createClass({
   render() {
+    const {id, text} = this.props;
     return (
       <div>
-        TodoApp.jsx
+        {id}. {text}
       </div>
     );
   }
 });
 
-module.exports = ToDoApp;
+module.exports = Todo;
