@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import uuid from 'node-uuid';
+import moment from 'moment';
 // this is used to create unique ids
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';
@@ -27,7 +28,9 @@ const TodoApp = React.createClass({
         {
           text: text,
           id: uuid(),
-          completed: false
+          completed: false,
+          createdAt: moment().unix(),
+          completedAt: undefined
         }
       ]
     });
@@ -43,6 +46,8 @@ const TodoApp = React.createClass({
       if (todo.id === id) {
           todo.completed = !todo.completed;
           // this will toggle the true/false state of completed
+          todo.completedAt = todo.completed ? moment().unix() : undefined;
+          // if completed is being toggled to true a date will be returned else undefined
       }
 
       return todo;
