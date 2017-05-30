@@ -2,40 +2,23 @@
  * Created by david on 5/28/17.
  */
 import React, { Component } from 'react';
+import uuid from 'node-uuid';
+// this is used to create unique ids
 import TodoList from 'TodoList';
 import AddTodo from 'AddTodo';
 import TodoSearch from 'TodoSearch';
-import uuid from 'node-uuid';
-// this is used to create unique ids
+import TodoAPI from 'TodoAPI';
 
 const TodoApp = React.createClass({
   getInitialState: function () {
     return {
       showCompleted: false,
       searchText: '',
-      todos: [
-        {
-          id: uuid(),
-          text: 'Walk the dog',
-          completed: true
-        },
-        {
-          id: uuid(),
-          text: 'Walk the cat',
-          completed: false
-        },
-        {
-          id: uuid(),
-          text: 'Dog the walk',
-          completed: false
-        },
-        {
-          id: uuid(),
-          text: 'Pick up lunch',
-          completed: true
-        }
-      ]
+      todos: TodoAPI.getTodos()
     };
+  },
+  componentDidUpdate : function () {
+    TodoAPI.setTodos(this.state.todos);
   },
   handleAddTodo: function (text) {
     this.setState({

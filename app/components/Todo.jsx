@@ -1,7 +1,7 @@
 /**
  * Created by david on 5/28/17.
  */
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 const Todo = React.createClass({
   render() {
@@ -11,10 +11,10 @@ const Todo = React.createClass({
         this.props.onToggle(id);
       }}>
         <input type="checkbox" checked={completed}/>
-        {id}. {text}
+        {text}
       </div>
     )
   }
 })
 
-module.exports = Todo
+module.exports = Todo;
