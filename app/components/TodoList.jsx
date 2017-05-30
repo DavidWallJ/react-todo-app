@@ -10,7 +10,7 @@ const TodoList = React.createClass({
     const renderTodos = () => {
       return todos.map((todo) => {
         return (
-          <Todo key={todo.id} {...todo}/>
+          <Todo key={todo.id} {...todo} onToggle={this.props.onToggle}/>
           // spread operator lets you spread out all the properties
           // all into individual props (id, text)
         );
