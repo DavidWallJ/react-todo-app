@@ -1,10 +1,10 @@
 /**
  * Created by david on 5/30/17.
  */
-import expect from 'expect'
+import expect from 'expect';
 // only need expect because we're not rendering react components
 
-import TodoAPI from 'TodoAPI'
+import TodoAPI from 'TodoAPI';
 
 describe('TodoAPI', () => {
   it('should exist', () => {
