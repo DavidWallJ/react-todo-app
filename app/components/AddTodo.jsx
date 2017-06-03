@@ -2,15 +2,19 @@
  * Created by david on 5/28/17.
  */
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+const actions = require('actions');
 
-const AddTodo = React.createClass({
+export const AddTodo = React.createClass({
   handleSubmit: function (e) {
     e.preventDefault();
+    const {dispatch} = this.props;
+    // dispatch is now on the props due to 'connect'
     const todoText = this.refs.todoText.value;
 
     if (todoText.length > 0) {
       this.refs.todoText.value = '';
-      this.props.onAddTodo(todoText);
+      dispatch(actions.addTodo(todoText))
     } else {
       this.refs.todoText.focus();
       // this puts the cursor back into the input field
@@ -28,4 +32,4 @@ const AddTodo = React.createClass({
   }
 });
 
-module.exports = AddTodo;
+export default connect()(AddTodo)
