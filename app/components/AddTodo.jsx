@@ -3,7 +3,9 @@
  */
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-const actions = require('actions');
+import * as actions from 'actions';
+// this allows us access to all actions
+// below we call startAddTodo
 
 export const AddTodo = React.createClass({
   handleSubmit: function (e) {
@@ -14,7 +16,7 @@ export const AddTodo = React.createClass({
 
     if (todoText.length > 0) {
       this.refs.todoText.value = '';
-      dispatch(actions.addTodo(todoText))
+      dispatch(actions.startAddTodo(todoText))
     } else {
       this.refs.todoText.focus();
       // this puts the cursor back into the input field
