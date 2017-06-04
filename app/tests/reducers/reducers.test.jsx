@@ -4,7 +4,7 @@
 import expect from 'expect'
 import df from 'deep-freeze-strict'
 // we don't need to use df but i think it gives you better error messages or something or make something easier
-const reducers = require('reducers')
+const reducers = require('reducers');
 
 describe('Reducers', () => {
   describe('searchTextReducer', () => {
@@ -64,5 +64,26 @@ describe('Reducers', () => {
       expect(res[0].completed).toEqual(false);
       expect(res[0].completedAt).toEqual(undefined);
     });
+
+    it('should add existing todos', () => {
+      const todos = [{
+        id: '111',
+        text: 'anything',
+        completed: false,
+        completedAt: undefined,
+        createdAt: 3333
+      }];
+
+      const action = {
+        type: 'ADD_TODOS',
+        todos
+      };
+
+      const res = reducers.todosReducer(df([]), df(action));
+
+      expect(res.length).toEqual(1);
+      expect(res[0]).toEqual(todos[0]);
+    });
+
   })
 })

@@ -11,7 +11,7 @@ export const setSearchText = (searchText) => {
 export const toggleShowCompleted = () => {
     return {
       type: 'TOGGLE_SHOW_COMPLETED',
-    }
+    };
 };
 
 export const addTodo = (text) => {
@@ -21,9 +21,17 @@ export const addTodo = (text) => {
     };
 };
 
+export const addTodos = (todos) => {
+    return {
+      type: 'ADD_TODOS',
+      todos
+    };
+};
+
 export const toggleTodo = (id) => {
     return {
       type: 'TOGGLE_TODO',
       id
     };
 };
+

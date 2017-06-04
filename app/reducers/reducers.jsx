@@ -4,6 +4,11 @@
 import uuid from 'node-uuid';
 import moment from 'moment';
 
+
+// you are here.  error in reducers.  rewatch 'setting up local storage with redux' from beginning
+
+
+
 export const searchTextReducer = (state = '', action) => {
     switch (action.type) {
       case 'SET_SEARCH_TEXT':
@@ -51,6 +56,11 @@ export const todosReducer = (state = [], action) => {
             return todo;
           }
       });
+      case 'ADD_TODOS':
+        return [
+          ...state,
+          ...action.todos
+        ];
       default:
         return state;
     }
