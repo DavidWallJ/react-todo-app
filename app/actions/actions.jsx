@@ -3,7 +3,9 @@
  */
 import firebase, { firebaseRef } from 'firebaseDB';
 import moment from 'moment';
-
+import thunk from 'redux-thunk';
+// we installed thunk so we could return functions
+// and thus async actions
 
 export const setSearchText = (searchText) => {
   return {
@@ -56,10 +58,30 @@ export const addTodos = (todos) => {
   }
 }
 
-export const toggleTodo = (id) => {
+export const updateTodo = (id, updates) => {
   return {
-    type: 'TOGGLE_TODO',
-    id
+    type: 'UPDATE_TODO',
+    id,
+    updates
   }
 }
+
+export const startToggleTodo = (id, completed) => {
+  return (dispatch, getState) => {
+    const todoRef = firebaseRef.child(`todos/${id}`);
+    const updates = {
+      completed,
+      completedAt: completed ? moment().unix() : null
+      // if completed is true set a new timestamp
+      // if completed is false remove completeAt
+    };
+
+    return todoRef.update(updates).then(() => {
+      // update firebase
+      dispatch(updateTodo(id, updates));
+      // update state and thus the view
+    });
+    // the return above allows use to chain our functions
+  };
+};
 

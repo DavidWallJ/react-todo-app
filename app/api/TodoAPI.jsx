@@ -34,7 +34,7 @@ module.exports = {
 
   },
   filterTodos: function (todos, showCompleted, searchText) {
-    let filteredTodos = todos
+    let filteredTodos = todos;
 
     // filter by showCompleted
     filteredTodos = filteredTodos.filter((todo) => {
