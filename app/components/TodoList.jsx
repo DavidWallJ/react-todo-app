@@ -11,12 +11,14 @@ export const TodoList = React.createClass({
   render() {
     const {todos, showCompleted, searchText} = this.props;
     const renderTodos = () => {
-      if (todos.length === 0) {
+      const filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
+      console.log(filteredTodos);
+      if (filteredTodos.length === 0) {
         return (
           <p className="container__message">Nothing To Do Here</p>
         )
       }
-      return TodoAPI.filterTodos(todos, showCompleted, searchText).map((todo) => {
+      return filteredTodos.map((todo) => {
         return (
           <Todo key={todo.id} {...todo} />
           // spread operator lets you spread out all the properties

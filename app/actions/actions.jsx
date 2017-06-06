@@ -58,6 +58,31 @@ export const addTodos = (todos) => {
   }
 }
 
+export const startAddTodos = () => {
+  return (dispatch, getState) => {
+
+    const todosRef = firebaseRef.child('todos');
+
+    return todosRef.once('value').then((snapshot) => {
+      //this is how we get a snapshot of our data at todos on the firebase db
+      const todos = snapshot.val() || {};
+      let parsedTodos = [];
+      // we needed to change the format of the object here to match the format of our app
+      // we took of the id and then added the other fields using forEach
+      Object.keys(todos).forEach((todoId) => {
+        parsedTodos.push({
+          id: todoId,
+          ...todos[todoId]
+        });
+      });
+      dispatch(addTodos(parsedTodos));
+    })
+  };
+};
+
+// Object.keys(todos) just to get the keys
+// the object format from firebase isn't the same as the format our app uses
+
 export const updateTodo = (id, updates) => {
   return {
     type: 'UPDATE_TODO',
