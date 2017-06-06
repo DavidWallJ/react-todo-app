@@ -1,6 +1,9 @@
 const webpack = require('webpack');
 const path = require('path');
 
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+// this var can be used inside webpack to specify our current operating situation
+
 module.exports = {
   entry: [
     'script!jquery/dist/jquery.min.js',
@@ -14,7 +17,14 @@ module.exports = {
     new webpack.ProvidePlugin({
       '$': 'jquery',
       'jQuery': 'jquery'
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      }
     })
+    // this removes all the warnings that occur when we run 'webpack -p'
+    // we use webpack -p to help trim down our app size
   ],
   output: {
     path: __dirname,
@@ -55,5 +65,6 @@ module.exports = {
       path.resolve(__dirname, './node_modules/foundation-sites/scss')
     ]
   },
-  devtool: 'cheap-module-eval-source-map'
+  devtool: process.env.NODE_ENV === 'production' ? undefined : 'cheap-module-eval-source-map'
+  // only generate source maps if in 'development'
 };
