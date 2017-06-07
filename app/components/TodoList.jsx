@@ -12,7 +12,6 @@ export const TodoList = React.createClass({
     const {todos, showCompleted, searchText} = this.props;
     const renderTodos = () => {
       const filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
-      console.log(filteredTodos);
       if (filteredTodos.length === 0) {
         return (
           <p className="container__message">Nothing To Do Here</p>

@@ -34,4 +34,4 @@ export const AddTodo = React.createClass({
   }
 });
 
-export default connect()(AddTodo)
+export default connect()(AddTodo);
