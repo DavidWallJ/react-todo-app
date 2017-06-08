@@ -1,16 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Route, Router, IndexRoute, hashHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 
-import TodoApp from 'TodoApp'
-import Login from 'Login';
 const actions = require('actions');
 const store = require('configureStore').configure();
-import TodoAPI from 'TodoAPI';
-
+import firebase from 'app/firebase/';
+import router from 'app/router/';
 // playground 
 // import './../playground/firebase/index';
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    hashHistory.push('/todos');
+  } else {
+    hashHistory.push('/');
+  }
+});
+// hash history allows use to manipulate the url
+// firebase onAuthStateChange does what it sounds like.
+// here we are checking to see if a user exists
 
 store.dispatch(actions.startAddTodos());
 
@@ -18,16 +27,11 @@ store.dispatch(actions.startAddTodos());
 $(document).foundation()
 
 // App css
-require('style!css!sass!applicationStyles')
+require('style!css!sass!applicationStyles');
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory}>
-      <Route path="/">
-        <Route path="todos" component={TodoApp}/>
-        <IndexRoute component={Login}/>
-      </Route>
-    </Router>
+    {router}
   </Provider>,
   // TodoApp and all of it's children have access to store via react-redux's Provider
   document.getElementById('app')
