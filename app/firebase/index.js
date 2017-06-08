@@ -11,8 +11,8 @@ try {
     authDomain: process.env.AUTH_DOMAIN,
     databaseURL: process.env.DATABASE_URL,
     storageBucket: process.env.STORAGE_BUCKET,
-    messagingSenderId: process.env.MESSAGE_SENDER_ID,
-    projectId: process.env.PROJECT_ID
+    // messagingSenderId: process.env.MESSAGE_SENDER_ID,
+    // projectId: process.env.PROJECT_ID
   };
 
   firebase.initializeApp(config);
@@ -21,6 +21,7 @@ try {
 
 }
 
+export const githubProvider = new firebase.auth.GithubAuthProvider();
 export const firebaseRef = firebase.database().ref();
 export default firebase;
 

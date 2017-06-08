@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { Route, Router, IndexRoute, hashHistory } from 'react-router';
 
 import TodoApp from 'TodoApp'
-
+import Login from 'Login';
 const actions = require('actions');
 const store = require('configureStore').configure();
 import TodoAPI from 'TodoAPI';
@@ -22,8 +22,15 @@ require('style!css!sass!applicationStyles')
 
 ReactDOM.render(
   <Provider store={store}>
-    <TodoApp/>
+    <Router history={hashHistory}>
+      <Route path="/">
+        <Route path="todos" component={TodoApp}/>
+        <IndexRoute component={Login}/>
+      </Route>
+    </Router>
   </Provider>,
   // TodoApp and all of it's children have access to store via react-redux's Provider
   document.getElementById('app')
 )
+
+
