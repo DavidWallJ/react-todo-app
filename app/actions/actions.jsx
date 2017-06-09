@@ -131,7 +131,7 @@ export const startLogin = () => {
 
 export const logout = () => {
   return {
-    type: ':PT'
+    type: 'LOGOUT'
   }
 };
 
