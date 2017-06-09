@@ -61,24 +61,24 @@ export const addTodos = (todos) => {
 export const startAddTodos = () => {
   return (dispatch, getState) => {
 
-    const todosRef = firebaseRef.child('todos')
+    const todosRef = firebaseRef.child('todos');
 
     return todosRef.once('value').then((snapshot) => {
       //this is how we get a snapshot of our data at todos on the firebase db
-      const todos = snapshot.val() || {}
-      let parsedTodos = []
+      const todos = snapshot.val() || {};
+      let parsedTodos = [];
       // we needed to change the format of the object here to match the format of our app
       // we took of the id and then added the other fields using forEach
       Object.keys(todos).forEach((todoId) => {
         parsedTodos.push({
           id: todoId,
           ...todos[todoId]
-        })
-      })
-      dispatch(addTodos(parsedTodos))
-    })
-  }
-}
+        });
+      });
+      dispatch(addTodos(parsedTodos));
+    });
+  };
+};
 
 // Object.keys(todos) just to get the keys
 // the object format from firebase isn't the same as the format our app uses
@@ -89,26 +89,33 @@ export const updateTodo = (id, updates) => {
     id,
     updates
   }
-}
+};
 
 export const startToggleTodo = (id, completed) => {
   return (dispatch, getState) => {
-    const todoRef = firebaseRef.child(`todos/${id}`)
+    const todoRef = firebaseRef.child(`todos/${id}`);
     const updates = {
       completed,
       completedAt: completed ? moment().unix() : null
       // if completed is true set a new timestamp
       // if completed is false remove completeAt
-    }
+    };
 
     return todoRef.update(updates).then(() => {
       // update firebase
       dispatch(updateTodo(id, updates))
       // update state and thus the view
-    })
+    });
     // the return above allows use to chain our functions
+  };
+};
+
+export const login = (uid) => {
+  return {
+    type: 'LOGIN',
+    uid: uid
   }
-}
+};
 
 export const startLogin = () => {
   return (dispatch, getState) => {
@@ -118,7 +125,13 @@ export const startLogin = () => {
       console.log('Unable to auth', error);
     });
   }
-}
+};
+
+export const logout = () => {
+  return {
+    type: 'LOGOUT'
+  }
+};
 
 export const startLogout = () => {
   return (dispatch, getState) => {
