@@ -48,8 +48,8 @@ describe('Reducers', () => {
 
       expect(res.length).toEqual(1)
       expect(res[0]).toEqual(action.todo);
-    })
-
+    });
+    
     it('should update todo', () => {
       const todos = [{
         id: '123',
@@ -93,6 +93,24 @@ describe('Reducers', () => {
 
       expect(res.length).toEqual(1);
       expect(res[0]).toEqual(todos[0]);
+    });
+
+    it('should wipe existing todos on logout', () => {
+      const todos = [{
+        id: '111',
+        text: 'anything',
+        completed: false,
+        completedAt: undefined,
+        createdAt: 3333
+      }];
+
+      const action = {
+        type: 'LOGOUT',
+      };
+
+      const res = reducers.todosReducer(df([todos]), df(action));
+
+      expect(res.length).toEqual(0);
     });
   });
   describe('authReducer', () => {
