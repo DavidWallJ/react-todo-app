@@ -14,6 +14,7 @@ firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     store.dispatch(actions.login(user.uid));
     hashHistory.push('/todos');
+    store.dispatch(actions.startAddTodos());
   } else {
     store.dispatch(actions.logout());
     hashHistory.push('/');
@@ -23,7 +24,7 @@ firebase.auth().onAuthStateChanged((user) => {
 // firebase onAuthStateChange does what it sounds like.
 // here we are checking to see if a user exists
 
-store.dispatch(actions.startAddTodos());
+
 
 // Load foundation
 $(document).foundation()
