@@ -3,3 +3,4 @@ public/bundle.js
 .idea/
 /playground/firebase/index.js
 config/
+package-lock.json

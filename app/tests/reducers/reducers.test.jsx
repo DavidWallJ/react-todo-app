@@ -3,7 +3,7 @@
  */
 import expect from 'expect'
 import df from 'deep-freeze-strict'
-// we don't need to use df but i think it gives you better error messages or something or make something easier
+// deep freeze ensures that the state isn't changed (for the actual app) when running tests
 const reducers = require('reducers');
 
 describe('Reducers', () => {
@@ -94,6 +94,35 @@ describe('Reducers', () => {
       expect(res.length).toEqual(1);
       expect(res[0]).toEqual(todos[0]);
     });
+  });
+  describe('authReducer', () => {
+    it('should store uid on LOGIN', () => {
+       const action = {
+         type: 'LOGIN',
+         uid: 'abc123'
+       };
+       
+       const res = reducers.authReducer(undefined, df(action));
 
-  })
-})
+       expect(res).toEqual({
+         uid: action.uid
+       });
+    });
+
+    it('should wipe auth on LOGOUT', () => {
+       const authData = {
+         uid: '123abc'
+       };
+       // going to pass this onto the state
+
+       const action = {
+         type: 'LOGOUT'
+       };
+
+       const res = reducers.authReducer(df(authData), df(action));
+
+       expect(res).toEqual({});
+
+    });
+  });
+});
